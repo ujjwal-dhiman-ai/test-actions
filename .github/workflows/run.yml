@@ -1,0 +1,25 @@
+name: Scheduled Python Script
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Schedule to run every 5 minutes
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11.3 # Specify your desired Python version
+
+    - name: Install dependencies
+      run: |
+        pip install pytz
+
+    - name: Run Python script
+      run: python main.py # Replace with your script's filename
