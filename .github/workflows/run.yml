@@ -20,17 +20,20 @@ jobs:
       - name: Install dependencies
         run: pip install pytz  # Modify this as needed
 
-      - name: Run your script
-        run: python main.py  # Replace with the actual command to run your script
-
-      - name: Commit and Push changes
-        run: |
-          git config user.name "ujjwal-dhiman-ai"
-          git config user.email "ukdhiman11@gmail.com"
-          git remote set-url origin https://$GH_PAT@github.com/ujjwal-dhiman-ai/test-actions.git
-          git add .
-          git commit -m "Auto commit by GitHub Actions"
-          git push
+      - name: Execute python script # run main.py
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-      
+          SOME_SECRET: ${{ secrets.SOME_SECRET }}
+        run: python main.py
+          
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+          
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main 
