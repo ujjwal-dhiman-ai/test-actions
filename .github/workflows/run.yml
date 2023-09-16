@@ -27,8 +27,10 @@ jobs:
         run: |
           git config user.name "ujjwal-dhiman-ai"
           git config user.email "ukdhiman11@gmail.com"
+          git remote set-url origin https://$GH_PAT@github.com/ujjwal-dhiman-ai/test-actions.git
           git add .
           git commit -m "Auto commit by GitHub Actions"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.SOME_SECRET }}
+      
