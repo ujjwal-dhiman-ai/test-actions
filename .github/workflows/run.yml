@@ -22,6 +22,8 @@ jobs:
         pip install pytz
 
     - name: Run Python script
+      env:
+        SOME_SECRET: ${{ secrets.SOME_SECRET }}
       run: python main.py # Replace with your script's filename
 
     - name: commit files
@@ -34,5 +36,5 @@ jobs:
     - name: push changes
       uses: ad-m/github-push-action@v0.6.0
       with:
-        github_token: ${{ secrets.SOME_SECRET }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: main 
